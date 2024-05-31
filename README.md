@@ -86,6 +86,7 @@ This repository contains the source code for a Project Management System. The sy
 - Log in with your credentials to access the project management features.
 
 - Generate Credentials
-  Use Postman to register the user and use the credentials to login via website.
+
+Use Postman to register the user and use the credentials to login via website.
   
 ---
