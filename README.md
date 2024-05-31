@@ -84,7 +84,9 @@ This repository contains the source code for a Project Management System. The sy
 ### Usage
 - Open your browser and navigate to `http://localhost:5173` to access the application.
 - Log in with your credentials to access the project management features.
+
+- Credentials
+  johndoe@gmail.com
+  secretpassword 
   
 ---
-
-Feel free to modify this README file to suit the specific details of your project, including adding sections for any additional features, troubleshooting, or contact information.
