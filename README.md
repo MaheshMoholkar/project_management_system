@@ -62,27 +62,15 @@ This repository contains the source code for a Project Management System. The sy
     ```
 2. Navigate to the project directory:
     ```bash
-    cd project-management-system/frontend
+    cd project-management-system
     ```
-    OR
-    ```
-    cd project-management-system/backend
-    ```
-3. Install dependencies:
+3. Run Docker compose command:
     ```bash
-    npm i
-    ```
-4. Set up the database:
-    ```bash
-    cd backend && docker compose up
-    ```
-5. Start the application:
-    ```bash
-    npm run dev
+    docker-compose up --build
     ```
 
 ### Usage
-- Open your browser and navigate to `http://localhost:5173` to access the application.
+- Open your browser and navigate to `http://localhost:3000` to access the application.
 - Log in with your credentials to access the project management features.
 
 - Generate Credentials
