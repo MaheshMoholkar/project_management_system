@@ -60,10 +60,10 @@ router.post(
 router.get("/validate-token", (req: Request, res: Response) => {
   const token = req.cookies["auth_token"];
   if (!token) {
-    res.status(200).send({ verified: false });
+    res.status(200).send(false);
     return;
   }
-  res.status(200).send({ verified: true });
+  res.status(200).send(true);
 });
 
 router.get("/logout", (req: Request, res: Response) => {

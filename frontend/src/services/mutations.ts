@@ -5,6 +5,7 @@ import { ProjectForm } from "@/pages/CreateProject";
 import { LoginForm } from "@/pages/Login";
 import { useAppContext } from "@/contexts/AppContext";
 import { useNavigate } from "react-router-dom";
+import { DisplayData } from "@/pages/ProjectList";
 
 export function useLogin() {
   const context = useAppContext();
@@ -23,7 +24,7 @@ export function useLogin() {
       toast("Login Succesful");
     },
     onError: (error: any) => {
-      const errorMessage = error.response?.data?.Message || "Login Error!";
+      const errorMessage = error.response?.data?.Message || error;
       toast(errorMessage);
     },
   });
@@ -42,7 +43,7 @@ export function useLogout() {
 export function useModifyStatus() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data) => modifyStatus(data),
+    mutationFn: (data: DisplayData) => modifyStatus(data),
     onSuccess: () => {
       toast("Status Updated!");
       queryClient.invalidateQueries({ queryKey: ["projects"] });

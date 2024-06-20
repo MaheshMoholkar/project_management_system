@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 
 type AppContextType = {
-  isLoggedIn: boolean | undefined;
+  loggedIn: boolean | undefined;
   setLoggedIn: (loggedIn: boolean) => void;
 };
 
@@ -14,25 +14,23 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const querClient = useQueryClient();
   const { data, isLoading, error } = useValidateToken();
   const [loggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     if (!isLoading && !error) {
-      setLoggedIn(data?.verified);
+      setLoggedIn(data);
     }
   }, [data, isLoading, error]);
 
   const handleSetLoggedIn = (loggedIn: boolean) => {
     setLoggedIn(loggedIn);
-    querClient.invalidateQueries({ queryKey: ["validateToken"] });
   };
 
   return (
     <AppContext.Provider
       value={{
-        isLoggedIn: loggedIn,
+        loggedIn: loggedIn,
         setLoggedIn: handleSetLoggedIn,
       }}
     >

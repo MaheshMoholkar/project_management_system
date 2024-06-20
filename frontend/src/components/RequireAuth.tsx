@@ -9,8 +9,8 @@ function RequireAuth() {
     return <div>Loading...</div>;
   }
 
-  const { isLoggedIn } = context;
-  return isLoggedIn ? (
+  const { loggedIn } = context;
+  return loggedIn ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />

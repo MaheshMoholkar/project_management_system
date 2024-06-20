@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Router>
           <App />
         </Router>
-        <Toaster />
+        <Toaster position="top-right" />
       </AppContextProvider>
     </QueryClientProvider>
   </React.StrictMode>

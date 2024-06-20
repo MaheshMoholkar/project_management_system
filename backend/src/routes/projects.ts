@@ -1,7 +1,11 @@
 import express, { Request, Response } from "express";
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
-import { DepartmentProjects, ProjectType } from "../shared/types";
+import {
+  DepartmentProjects,
+  ProjectSearchResponse,
+  ProjectType,
+} from "../shared/types";
 import Project from "../models/project";
 import { calculateStatusCount, parseDate } from "../shared/common";
 
@@ -48,8 +52,24 @@ router.post(
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
-    const projects = await Project.find({});
-    res.status(200).json(projects);
+    const pageSize = 8;
+    const pageNumber = parseInt(
+      req.query.page ? req.query.page.toString() : "1"
+    );
+    const skip = (pageNumber - 1) * pageSize;
+
+    const projects = await Project.find({}).skip(skip).limit(pageSize);
+    const total = await Project.countDocuments();
+
+    const response: ProjectSearchResponse = {
+      data: projects,
+      pagination: {
+        total,
+        page: pageNumber,
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+    res.json(response);
   } catch (error) {
     res.status(500).json({ message: "Error fetching projects!" });
   }

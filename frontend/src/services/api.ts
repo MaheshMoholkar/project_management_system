@@ -19,18 +19,22 @@ export const validateToken = async () => {
   return (await axiosInstance.get("/api/auth/validate-token")).data;
 };
 
-export const getProjects = async () => {
-  return (await axiosInstance.get("api/projects")).data;
+export const getProjects = async (page: any, search: any) => {
+  return (
+    await axiosInstance.get("api/projects", {
+      params: {
+        page,
+        search,
+      },
+    })
+  ).data;
 };
 
 export const modifyStatus = async (data: any) => {
   const status = {
-    status: data.data.newStatus,
+    status: data.status,
   };
-  return await axiosInstance.post(
-    `api/projects/${data.data._id}/status`,
-    status
-  );
+  return await axiosInstance.post(`api/projects/${data._id}/status`, status);
 };
 
 export const createProject = async (data: any) => {

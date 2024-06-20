@@ -1,62 +1,72 @@
+import React, { useEffect, useState } from "react";
+import Highcharts, { color } from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 import { DepartmentProjects } from "@/pages/Dashboard";
-import { useEffect, useState } from "react";
-import {
-  Bar,
-  BarChart,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 
-function BarChartComponent({ chartData }: any) {
-  const [data, setData] = useState<DepartmentProjects[]>();
+type BarChartComponentProps = {
+  chartData: DepartmentProjects[];
+};
+
+const BarChartComponent: React.FC<BarChartComponentProps> = ({ chartData }) => {
+  const [data, setData] = useState<DepartmentProjects[]>([]);
+
   useEffect(() => {
     setData(chartData);
-  });
+  }, [chartData]);
 
-  const getMaxProjects = () => {
-    let maxProjectCount = 0;
-
-    if (data) {
-      data.forEach((project) => {
-        if (project.total > maxProjectCount) {
-          maxProjectCount = project.total;
-        }
-      });
-    }
-
-    return maxProjectCount;
+  const options = {
+    chart: {
+      type: "column",
+    },
+    title: {
+      text: "Statistics",
+      align: "left",
+    },
+    xAxis: {
+      categories: data.map((item) => item.department),
+      crosshair: true,
+      accessibility: {
+        description: "Departments",
+      },
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: "Projects",
+      },
+    },
+    tooltip: {
+      shared: true,
+      useHTML: true,
+      headerFormat: "<b>{point.key}</b><br>",
+      pointFormat:
+        '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0,
+      },
+    },
+    series: [
+      {
+        name: "Total",
+        data: data.map((item) => item.totalProjects),
+        color: "#025aab",
+      },
+      {
+        name: "Closed",
+        data: data.map((item) => item.closed),
+        color: "#5aa647",
+      },
+    ],
   };
+
   return (
-    <>
-      <div className="mt-5 p-5 bg-white border rounded-lg shadow-sm md:w-1/2">
-        <ResponsiveContainer width={"100%"} height={300}>
-          <BarChart width={500} height={300} data={data}>
-            <XAxis dataKey="department" tick={{ fontSize: 14 }} />
-            <YAxis dataKey={getMaxProjects} tick={{ fontSize: 14 }} />
-            <Tooltip shared={false} trigger="click" />
-            <Legend />
-            <Bar
-              dataKey="totalProjects"
-              name="Total"
-              fill="#1c72ca"
-              radius={[10, 10, 0, 0]}
-              barSize={20}
-            />
-            <Bar
-              dataKey="closed"
-              name="Closed"
-              fill="#3CA99F"
-              radius={[10, 10, 0, 0]}
-              barSize={20}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    </>
+    <div className="mt-5 p-5 bg-white border rounded-lg shadow-sm md:w-1/2">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+    </div>
   );
-}
+};
 
 export default BarChartComponent;

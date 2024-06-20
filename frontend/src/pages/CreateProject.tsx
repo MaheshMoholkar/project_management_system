@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { formatDateToCustom } from "@/utils/dateUtils";
 import { useState } from "react";
 import { useCreateProject } from "@/services/mutations";
+import { Textarea } from "@/components/ui/textarea";
 
 export type ProjectForm = {
   title: string;
@@ -43,12 +44,14 @@ function CreateProject() {
 
   return (
     <>
-      <div className="m-5 md:-mt-6 rounded-lg bg-white">
-        <div className="h-[580px]">
-          <form className="p-8" onSubmit={handleSubmit(onSubmit)}>
+      <div className="m-5 md:-mt-6 mb-14 rounded-lg bg-white md:h-[75vh]">
+        <div className="">
+          <form className="px-3 pt-8" onSubmit={handleSubmit(onSubmit)}>
             <div className="md:flex justify-between">
-              <Input
-                className="md:w-1/3 w-full border border-gray-400"
+              <Textarea
+                className={`md:w-1/3 w-full border border-gray-400 resize-none ${
+                  errors.title ? "border-red-400" : ""
+                }`}
                 placeholder="Enter Project Theme"
                 value={title}
                 {...register("title", { required: true })}
@@ -78,7 +81,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="reason"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`first-letter:mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.reason ? "border-red-400" : ""
+                  }`}
                   {...register("reason", { required: true })}
                 >
                   <option value="">Select a reason</option>
@@ -102,7 +107,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="type"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.type ? "border-red-400" : ""
+                  }`}
                   {...register("type", { required: true })}
                 >
                   <option value="">Select a type</option>
@@ -126,7 +133,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="division"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.division ? "border-red-400" : ""
+                  }`}
                   {...register("division", { required: true })}
                 >
                   <option value="">Select a division</option>
@@ -152,7 +161,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="category"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.category ? "border-red-400" : ""
+                  }`}
                   {...register("category", { required: true })}
                 >
                   <option value="">Select a category</option>
@@ -177,7 +188,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="priority"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.priority ? "border-red-400" : ""
+                  }`}
                   {...register("priority", { required: true })}
                 >
                   <option value="">Select a priority</option>
@@ -201,7 +214,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="department"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.department ? "border-red-400" : ""
+                  }`}
                   {...register("department", { required: true })}
                 >
                   <option value="">Select a department</option>
@@ -228,7 +243,9 @@ function CreateProject() {
                 <input
                   type="date"
                   id="startDate"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.startDate ? "border-red-400" : ""
+                  }`}
                   {...register("startDate", { required: true })}
                 />
                 {errors.startDate && (
@@ -248,7 +265,9 @@ function CreateProject() {
                 <input
                   type="date"
                   id="endDate"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.endDate ? "border-red-400" : ""
+                  }`}
                   {...register("endDate", { required: true })}
                 />
                 {errors.endDate && (
@@ -267,7 +286,9 @@ function CreateProject() {
                 </label>
                 <select
                   id="location"
-                  className="mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className={`mt-1 p-3 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.title ? "border-red-400" : ""
+                  }`}
                   {...register("location", { required: true })}
                 >
                   <option value="">Select a location</option>
@@ -279,12 +300,12 @@ function CreateProject() {
                   <span className="text-red-500">This field is required</span>
                 )}
               </div>
-              <div className="b-12 mr-12 text-gray-700 mb-5">
+              <div className="b-12 mx-4 text-gray-700 mb-5">
                 Status: <b>Registered</b>
               </div>
               <Button
                 variant="ghost"
-                className="my-10 bg-blue-600 px-6 rounded-full hover:bg-blue-800 hover:text-white text-blue-50 md:hidden"
+                className="m-6 bg-blue-600 px-6 rounded-full w-full hover:bg-blue-800 hover:text-white text-blue-50 md:hidden"
                 type="submit"
               >
                 Save Project

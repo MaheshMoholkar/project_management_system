@@ -13,3 +13,32 @@ export function formatDate(dateString: string) {
   const year = date.getFullYear();
   return `${day}-${month}-${year}`;
 }
+
+export function formatDateRange(start: string, end: string): string {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  const formattedStart = `${
+    months[startDate.getUTCMonth()]
+  }-${startDate.getUTCDate()}, ${startDate.getUTCFullYear()}`;
+  const formattedEnd = `${
+    months[endDate.getUTCMonth()]
+  }-${endDate.getUTCDate()}, ${endDate.getUTCFullYear()}`;
+
+  return `${formattedStart} to ${formattedEnd}`;
+}

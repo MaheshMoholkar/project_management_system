@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCardList, getChartData, getProjects, validateToken } from "./api";
 
-export function useGetProjects() {
+export function useGetProjects(page: number = 1, search: string = "") {
   return useQuery({
-    queryKey: ["projects"],
-    queryFn: getProjects,
+    queryKey: ["projects", { page, search }],
+    queryFn: () => getProjects(page, search),
   });
 }
 

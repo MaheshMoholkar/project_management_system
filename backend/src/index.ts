@@ -17,7 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    // origin: process.env.FRONTEND_URL,
+    origin: true,
     credentials: true,
   })
 );
@@ -26,6 +27,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectsRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server started on http://localhost:${process.env.PORT}`);
+app.listen(8001, () => {
+  console.log("Server Started");
 });

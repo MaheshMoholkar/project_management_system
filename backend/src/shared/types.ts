@@ -31,3 +31,12 @@ export interface DepartmentProjects {
   totalProjects: number;
   closed: number;
 }
+
+export type ProjectSearchResponse = {
+  data: ProjectType[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};

@@ -1,5 +1,6 @@
 import BarChartComponent from "@/components/BarChart";
 import Card from "@/components/Card";
+import PieChart from "@/components/PieChart";
 import { useGetCardList, useGetChartData } from "@/services/queries";
 import { useEffect, useState } from "react";
 
@@ -10,14 +11,14 @@ type Card = {
 
 export interface DepartmentProjects {
   department: string;
-  total: number;
+  totalProjects: number;
   closed: number;
 }
 
 function Dashboard() {
   const [cardList, setCardList] = useState<Card[]>();
   const getProjectsQuery = useGetCardList();
-  const [chartData, setChartData] = useState<DepartmentProjects[]>();
+  const [chartData, setChartData] = useState<DepartmentProjects[]>([]);
   const getChartDataQuery = useGetChartData();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="flex items-center flex-col md:flex-row gap-4 md:-mt-6 md:justify-around">
+      <div className="flex items-center overflow-y-auto no-scrollbar md:flex-row gap-4 md:-mt-6 md:justify-around m-4">
         {cardList &&
           cardList.map((item, index) => (
             <Card
@@ -44,9 +45,12 @@ function Dashboard() {
             />
           ))}
       </div>
-      <div className="m-4 text-xl">
-        <p>Department Wise - Total vs Closed</p>
-        <BarChartComponent chartData={chartData} />
+      <div className="md:ml-8 text-xl">
+        <p className="ml-4">Department Wise - Total vs Closed</p>
+        <div className="flex flex-col md:flex-row">
+          <BarChartComponent chartData={chartData} />
+          <PieChart />
+        </div>
       </div>
     </>
   );

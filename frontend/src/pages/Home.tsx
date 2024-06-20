@@ -19,12 +19,14 @@ function Home() {
       <div className="md:w-16 fixed hidden md:block">
         <SideNav />
       </div>
-      <div className="fixed md:hidden">
+      <div className="md:hidden sticky bottom-0 z-20">
         <BottomNav />
       </div>
       <div className="flex flex-col flex-1 md:ml-16 bg-slate-100 dashboard-container overflow-x-auto h-screen">
         <Header title={title} />
-        <Outlet />
+        <div className="z-10">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
